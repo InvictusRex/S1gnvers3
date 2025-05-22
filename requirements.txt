@@ -1,6 +1,7 @@
+mediapipe==0.10.21
 opencv-python
-mediapipe
+numpy
 scikit-learn
+pandas
 streamlit
 pyttsx3
-numpy
