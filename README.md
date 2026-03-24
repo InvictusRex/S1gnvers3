@@ -13,8 +13,8 @@ FULCRUM is structured as two parallel perception-to-speech pipelines that operat
 ```mermaid
 graph TB
     subgraph INPUT ["Input Layer"]
-        CAM1["📷 Camera Feed<br/>(ASL Gestures)"]
-        CAM2["📷 Camera Feed<br/>(Scene / Environment)"]
+        CAM1["Camera Feed<br/>(ASL Gestures)"]
+        CAM2["Camera Feed<br/>(Scene / Environment)"]
     end
 
     subgraph PART1 ["Part 1 — ASL-to-Text-to-Speech"]
@@ -33,7 +33,7 @@ graph TB
     subgraph OUTPUT ["Shared Output Layer"]
         TXT["Generated Text"]
         TTS["Text-to-Speech Engine<br/>(pyttsx3 / gTTS)"]
-        SPK["🔊 Audio Output"]
+        SPK["Audio Output"]
     end
 
     CAM1 --> P1A --> TXT
@@ -297,7 +297,7 @@ At inference time, the system operates on a live camera feed using a sliding win
 graph TD
     subgraph REALTIME_ASL ["Phase 2 — Complete End-to-End Pipeline"]
         direction TB
-        LIVE_CAM["📷 Live Camera Feed"] --> BUF["Sliding Window Buffer<br/>(Last T Frames)"]
+        LIVE_CAM["Live Camera Feed"] --> BUF["Sliding Window Buffer<br/>(Last T Frames)"]
         BUF --> FEAT["Per-Frame Feature Extraction<br/>(Holistic / CNN / Hybrid)"]
         FEAT --> TEMP_MODEL["Temporal Model<br/>(LSTM / Transformer)"]
         TEMP_MODEL --> RAW_PRED["Raw Prediction<br/>(1 of 1000 glosses)"]
@@ -305,7 +305,7 @@ graph TD
         SMOOTH --> COOLDOWN["Cooldown Filter<br/>(Suppress repeated<br/>predictions)"]
         COOLDOWN --> WORD_BUF["Word / Sentence Buffer"]
         WORD_BUF --> TTS_P2["Text-to-Speech<br/>(pyttsx3 / gTTS)"]
-        TTS_P2 --> SPEAKER["🔊 Spoken Output"]
+        TTS_P2 --> SPEAKER["Spoken Output"]
     end
 
     style REALTIME_ASL fill:#0d1b2a,stroke:#1b263b,color:#fff
@@ -487,7 +487,7 @@ In deployment, the image captioning system operates on a live camera feed with a
 graph TD
     subgraph REALTIME_CAP ["Part 2 — Complete End-to-End Pipeline"]
         direction TB
-        CAM_LIVE["📷 Live Camera Feed"] --> INTERVAL["Frame Capture<br/>(Every N seconds)"]
+        CAM_LIVE["Live Camera Feed"] --> INTERVAL["Frame Capture<br/>(Every N seconds)"]
         INTERVAL --> CHANGE{"Scene Changed?<br/>(Cosine Similarity<br/>vs. Previous Frame)"}
         CHANGE -->|"Yes"| OD_STEP["Object Detection<br/>(YOLOv8)"]
         CHANGE -->|"No"| SKIP["Skip<br/>(No new caption)"]
@@ -495,7 +495,7 @@ graph TD
         ENCODE --> DECODE["Caption Decoder<br/>(LSTM+Attn / Transformer)"]
         DECODE --> CAPTION["Generated Caption"]
         CAPTION --> TTS_CAP["Text-to-Speech"]
-        TTS_CAP --> SPEAK_CAP["🔊 Spoken Description"]
+        TTS_CAP --> SPEAK_CAP["Spoken Description"]
     end
 
     style REALTIME_CAP fill:#0d1b2a,stroke:#1b263b,color:#fff
